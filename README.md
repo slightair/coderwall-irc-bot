@@ -19,17 +19,20 @@ stop `ruby bin/cib.rb stop`
 ###directory
 * tmp - pid file
 * log - log file
+
 TODO
 ----
 * 色々綺麗にする
+  
 LICENCE
 ----
 * Copyright © 2012 con_mame. See LICENSE.txt for further details.
 
 * This program use thes Library and API  
- [Net::IRC](http://github.com/cho45/net-irc)
+ [Net::IRC](http://github.com/cho45/net-irc)  
  [daemon-spawn](https://github.com/alexvollmer/daemon-spawn)  
  [coderwall API](http://coderwall.com/api)
+ 
 AUTHOR
 ----
 con_mame con_mame@conma.me
