@@ -14,7 +14,7 @@ class CoderwallIrcBot < Net::IRC::Client
 
   def on_privmsg(m)
     channel, message = *m
-    if message.force_encoding('utf-8') =~ /^coderwall:(.*)$/
+    if message.force_encoding('utf-8') =~ /^coderwall:\s*(\w+)/
       post(NOTICE, channel, coderwall_user_status($1))
     end
   end

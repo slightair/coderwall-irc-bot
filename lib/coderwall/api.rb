@@ -19,7 +19,7 @@ module CoderWall
         user_name = nil if user_name.nil? || user_name == ""
         user_data = {:name => user_name, :msg => ''}
         raise(ArgumentError, 'No User Name is given!') if user_name.nil?
-        url = URI.parse("http://coderwall.com/#{user_name}.json")
+        url = URI.parse(URI.escape("http://coderwall.com/#{user_name}.json"))
         res = Net::HTTP.start(url.host, url.port) { |http|
           http.request(Net::HTTP::Get.new(url.path))
         }
