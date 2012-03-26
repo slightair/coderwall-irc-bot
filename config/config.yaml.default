@@ -1,0 +1,7 @@
+server:
+  host:     chat.freenode.net
+  port:     6667
+  nick:     coderwall_irc_bot
+  user:     coderwall_irc_bot
+  real:     coderwall_irc_bot
+  channel:	#hoge
