@@ -28,7 +28,14 @@ module CoderWall
       rescue ArgumentError => e
         user_data[:msg] =  e.message
       end
-      user_data[:badges] = response['badges'].map { |badge| UserAchievement.new(badge) } unless response.nil?
+
+      unless response.nil?
+        ['location', 'endorsements', 'accounts'].each do |k|
+          user_data[k.to_sym] = response[k] unless response[k].nil?
+        end
+        user_data[:badges] = response['badges'].map { |badge| UserAchievement.new(badge) }
+      end
+
       user_data
     end
   end

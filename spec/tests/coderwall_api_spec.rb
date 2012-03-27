@@ -24,7 +24,15 @@ describe CoderWall::CoderwallApi do
       subject { CoderwallApi.get_user_achievement('ok') }
       its([:name]) { should eq 'ok' }
       its([:msg]) { should eq '' }
-      it "success result data" do
+      its([:location]) { should eq "Tokyo" }
+      its([:endorsements]) { should eq 10 }
+      
+      it "success result data (accounts)" do
+        account = subject[:accounts]
+        account["github"].should == 'hoge'
+      end
+
+      it "success result data (badges)" do
       	badges = subject[:badges].first
         badges.name.should == 'Walrus'
         badges.description.should == 'The walrus is no stranger to variety. Use at least 4 different languages throughout all your repos'
