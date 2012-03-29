@@ -4,4 +4,4 @@ server:
   nick:     coderwall_irc_bot
   user:     coderwall_irc_bot
   real:     coderwall_irc_bot
-  channel:	#hoge
+  channel:	'#hoge'

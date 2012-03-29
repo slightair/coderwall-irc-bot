@@ -12,7 +12,7 @@ HOW TO USE
       nick:     coderwall_irc_bot
       user:     coderwall_irc_bot
       real:     coderwall_irc_bot
-      channel:		#hoge
+      channel:	'#hoge'
 ###commands
 start `ruby bin/cib.rb start`  
 stop `ruby bin/cib.rb stop`
