@@ -2,11 +2,10 @@
 require 'net/irc'
 require 'yaml'
 require 'daemon_spawn'
-
-require File.expand_path(File.dirname(__FILE__) + '/../lib/coderwall')
+require 'coderwaller'
 
 class CoderwallIrcBot < Net::IRC::Client
-  include CoderWall
+  include CoderWaller
 
   def on_rpl_welcome(m)
     post JOIN, opts.channel
@@ -20,7 +19,7 @@ class CoderwallIrcBot < Net::IRC::Client
   end
 
   def coderwall_user_status(user_name)
-    user_achivement = CoderwallApi.get_user_achievement(user_name)
+    user_achivement = CoderwallerApi.get_user_achievement(user_name)
     return user_achivement[:msg] unless user_achivement[:msg] == ''
     return "#{user_achivement[:name]} has #{user_achivement[:badges].size} badges!"
   end

@@ -3,3 +3,4 @@ Thumbs.db
 config/config.yaml
 **/*.log
 **/*.pid
+Gemfile.lock

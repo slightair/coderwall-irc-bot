@@ -1,10 +1,19 @@
-coderwall IRC BOT
+coderwall IRC BOT [![Gem Status](https://gemnasium.com/conmame/coderwall-irc-bot.png)](https://gemnasium.com/conmame/coderwall-irc-bot)
 ====
+
 Description
 ----
 This BOT reply asked user [coderwall](http://coderwall.com/) status.
+
 HOW TO USE
 ----
+
+    #bundle install
+    
+or
+
+    #gem install coderwaller daemon-spawn net-irc
+
 ###config/config.yaml
     server:
       host:     chat.freenode.net
@@ -13,9 +22,11 @@ HOW TO USE
       user:     coderwall_irc_bot
       real:     coderwall_irc_bot
       channel:	'#hoge'
+      
 ###commands
 start `ruby bin/cib.rb start`  
 stop `ruby bin/cib.rb stop`
+
 ###directory
 * tmp - pid file
 * log - log file
