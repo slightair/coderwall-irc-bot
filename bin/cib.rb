@@ -4,24 +4,57 @@ require 'yaml'
 require 'daemon_spawn'
 require 'coderwaller'
 
+class UserNotFoundException < Exception; end
+
 class CoderwallIrcBot < Net::IRC::Client
   include CoderWaller
 
   def on_rpl_welcome(m)
-    post JOIN, opts.channel
+    post(JOIN, opts.channel)
   end
 
   def on_privmsg(m)
     channel, message = *m
-    if message.force_encoding('utf-8') =~ /^coderwall:\s*(\w+)/
-      post(NOTICE, channel, coderwall_user_status($1))
+    p = -> msg { post_irc(channel, msg) }
+
+    begin
+      case message.force_encoding('utf-8')
+      when /^coderwall:\s*(\w+)/
+        coderwall_user_status($1) do |msg|
+          p.call(msg)
+        end
+      when /^coderwall-d:\s*(\w+)/
+        coderwall_user_detail_status($1) do |msg|
+          p.call(msg)
+        end
+      end
+    rescue UserNotFoundException => e
+      p.call(e.message)
     end
   end
 
+  private
+  def post_irc(channel, msg, type = NOTICE)
+    post(type, channel, msg)
+  end
+
   def coderwall_user_status(user_name)
-    user_achivement = CoderwallerApi.get_user_achievement(user_name)
-    return user_achivement[:msg] unless user_achivement[:msg] == ''
-    return "#{user_achivement[:name]} has #{user_achivement[:badges].size} badges!"
+    user_achievement = get_coderwall(user_name)
+    yield "#{user_achievement[:name]} has #{user_achievement[:badges].size} badges!" if block_given?
+  end
+
+  def coderwall_user_detail_status(user_name)
+    user_achievement = get_coderwall(user_name)
+    yield "#{user_name} have 0 badge" if user_achievement[:badges].size == 0 if block_given?
+    user_achievement[:badges].each do |badge|
+      yield "* #{badge.name} (#{badge.description})" if block_given?
+    end
+  end
+
+  def get_coderwall(user_name)
+    user_achievement = CoderwallerApi.get_user_achievement(user_name)
+    raise(UserNotFoundException, user_achievement[:msg]) unless user_achievement[:msg] == ''
+    user_achievement
   end
 end
 

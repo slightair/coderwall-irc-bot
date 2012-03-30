@@ -8,6 +8,11 @@ This BOT reply asked user [coderwall](http://coderwall.com/) status.
 HOW TO USE
 ----
 
+###irc commands
+* coderwall: USER_NAME - Get Coderwall badge.
+* coderwall-d: USER_NAME - Get Coderwall badge detail.
+
+###install gems
     #bundle install
     
 or
