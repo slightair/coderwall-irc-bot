@@ -9,8 +9,13 @@ class UserNotFoundException < Exception; end
 class CoderwallIrcBot < Net::IRC::Client
   include CoderWaller
 
+  def initialize(host, port, opts={})
+    @password = (opts[:password].nil?) ? '' : opts[:password]
+    super
+  end
+
   def on_rpl_welcome(m)
-    post(JOIN, opts.channel)
+    post_irc(opts.channel, @password, JOIN)
   end
 
   def on_privmsg(m)
@@ -64,7 +69,7 @@ class Cib < DaemonSpawn::Base
     server_config = YAML.load_file("../config/config.yaml")['server']
     client = CoderwallIrcBot.new(server_config['host'], server_config['port'],
     {:nick => server_config['nick'], :user => server_config['user'], :real => server_config['real'],
-    :channel => server_config['channel']})
+    :channel => server_config['channel'], :password => server_config['password']})
     client.start
   end
 

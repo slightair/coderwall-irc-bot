@@ -27,6 +27,7 @@ or
       user:     coderwall_irc_bot
       real:     coderwall_irc_bot
       channel:	'#hoge'
+      password:  ''
       
 ###commands
 start `ruby bin/cib.rb start`  

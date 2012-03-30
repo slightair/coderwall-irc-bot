@@ -5,3 +5,4 @@ server:
   user:     coderwall_irc_bot
   real:     coderwall_irc_bot
   channel:	'#hoge'
+  password: ''
