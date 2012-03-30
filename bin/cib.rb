@@ -66,10 +66,12 @@ end
 class Cib < DaemonSpawn::Base
   def start(args)
     puts "start : #{Time.now}"
+    log = Logger.new(STDOUT)
+    log.level = Logger::ERROR
     server_config = YAML.load_file("../config/config.yaml")['server']
     client = CoderwallIrcBot.new(server_config['host'], server_config['port'],
     {:nick => server_config['nick'], :user => server_config['user'], :real => server_config['real'],
-    :channel => server_config['channel'], :password => server_config['password']})
+    :channel => server_config['channel'], :password => server_config['password'], :logger => log})
     client.start
   end
 
