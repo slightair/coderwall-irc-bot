@@ -45,7 +45,7 @@ class CoderwallIrcBot < Net::IRC::Client
 
   def coderwall_user_status(user_name)
     user_achievement = get_coderwall(user_name)
-    yield "#{user_achievement[:name]} has #{user_achievement[:badges].size} badges!" if block_given?
+    yield "#{user_achievement[:name]} has #{user_achievement[:badges].size} badges! http://coderwall.com/#{user_achievement[:name]}" if block_given?
   end
 
   def coderwall_user_detail_status(user_name)
